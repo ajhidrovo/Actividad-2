@@ -1,0 +1,58 @@
+#include <iostream>
+using namespace std;
+
+// Definición de la clase ContenedorDeNumeros
+class ContenedorDeNumeros {
+private:
+    // Atributos privados de la clase
+    int indiceActual; // Índice actual del último número agregado
+    double suma;     // Suma de todos los números agregados
+    double promedio; // Promedio de todos los números agregados
+
+public:
+    // Constructor por defecto
+    ContenedorDeNumeros() {
+        indiceActual = 0; // Inicializa el índice actual a 0
+        suma = 0.0;      // Inicializa la suma a 0.0
+        promedio = 0.0;  // Inicializa el promedio a 0.0
+    }
+
+    // Método para agregar un nuevo número al contenedor
+    void agregarNumero(int numero) {
+        suma += numero;   // Suma el número a la suma total
+        indiceActual++;   // Incrementa el índice actual
+        actualizarPromedio(); // Actualiza el promedio
+    }
+
+    // Método para obtener la suma de todos los números
+    double obtenerSuma() {
+        return suma; // Devuelve la suma total
+    }
+
+    // Método para obtener el promedio de todos los números
+    double obtenerPromedio() {
+        return promedio; // Devuelve el promedio
+    }
+
+private:
+    // Método privado para actualizar el promedio
+    void actualizarPromedio() {
+        promedio = obtenerSuma() / indiceActual; // Calcula el nuevo promedio
+    }
+};
+
+int main() {
+    // Creación de un objeto ContenedorDeNumeros
+    ContenedorDeNumeros contenedor;
+
+    // Agregando números al contenedor
+    contenedor.agregarNumero(5);
+    contenedor.agregarNumero(10);
+    contenedor.agregarNumero(15);
+
+    // Imprimiendo la suma y el promedio
+    cout << "Suma: " << contenedor.obtenerSuma() << endl;
+    cout << "Promedio: " << contenedor.obtenerPromedio() << endl;
+
+    return 0; // Fin del programa
+}
