@@ -1,55 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-package com.mycompany.practice;
+#include <iostream>  // Incluye la biblioteca de entrada/salida estándar de C++
+using namespace std; // Utiliza el espacio de nombres estándar para evitar escribir "std::" antes de cada función
 
-import java.util.Scanner;
+// Clase "ContenedorDeNumeros" que se encarga de almacenar y calcular la suma y el promedio de números
+class ContenedorDeNumeros {
+    int numeros[10];   // Arreglo de 10 enteros para almacenar los números
+    int indiceActual = 0; // Índice actual del arreglo "numeros", se incrementa al agregar un nuevo número
 
-public class Practice {
+public:
+    // Método "agregarNumero" que agrega un número al arreglo "numeros"
+    void agregarNumero(int valor) {
+        numeros[indiceActual++] = valor; // Asigna el valor al elemento actual del arreglo y luego incrementa el índice
+    }
 
-    private int[] numeros = new int[10]; // Arreglo para guardar hasta 10 números
-    private int cantidad = 0;            // Variable inicilaizada en 0 para guardar la cantidad de numeros 
-
-    // Agrega un numero al arreglo
-    public void agregarNumero(int numero) {
-        if (cantidad < numeros.length) {
-            numeros[cantidad++] = numero;
-        } else {
-            System.out.println("Se ha alcanzado el límite de 10 números.");
+    // Método "obtenerSuma" que calcula la suma de todos los números almacenados
+    int obtenerSuma() {
+        int suma = 0; // Variable para almacenar la suma
+        for (int i = 0; i < indiceActual; ++i) { // Recorre el arreglo "numeros" desde el inicio hasta el índice actual
+            suma += numeros[i]; // Suma cada número al acumulador "suma"
         }
+        return suma; // Devuelve la suma total
     }
 
-    // Calcula la suma de los numeros ingresados
-    public int calcularSuma() {
-        int suma = 0;
-        for (int i = 0; i < cantidad; i++) {
-            suma += numeros[i];
-        }
-        return suma;
+    // Método "obtenerPromedio" que calcula el promedio de los números almacenados
+    double obtenerPromedio() {
+        return indiceActual == 0 ? 0.0 : (double)obtenerSuma() / indiceActual; // Si no hay números, devuelve 0.0, de lo contrario, 
+        //calcula el promedio dividiendo la suma entre el número de elementos
+    }
+};
+
+int main() {
+    setlocale(LC_ALL,"spanish"); // Establece el idioma español para la salida
+    ContenedorDeNumeros contenedor; // Crea un objeto "contenedor" de la clase "ContenedorDeNumeros"
+    int totalDeNumeros; // Variable para almacenar el total de números a ingresar
+
+    cout << "¿Cuántos números ingresará? "; // Solicita al usuario que ingrese la cantidad de números
+    cin >> totalDeNumeros; // Lee la cantidad de números desde la entrada
+
+    for (int i = 0; i < totalDeNumeros; ++i) { // Ciclo que se repite "totalDeNumeros" veces
+        cout << "Número: "; // Solicita al usuario que ingrese un número
+        int numero; // Variable para almacenar el número ingresado
+        cin >> numero; // Lee el número desde la entrada
+        contenedor.agregarNumero(numero); // Agrega el número al contenedor
     }
 
-    // Calcula el promedio de los numeros guardados que se guardaron
-    public double calcularPromedio() {
-        return cantidad == 0 ? 0 : (double) calcularSuma() / cantidad;
-    }
-
-    //El metodo prinicpal main//
-    public static void main(String[] args) {
-        Practice calculadora = new Practice();  //Crear un objeto de tipo clase llamado calculadora//
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("¿Cuántos números ingresará? (entre 1-10): ");
-        int totalNumeros = scanner.nextInt();   //Variables con nombres descriptivos//
-
-        for (int i = 0; i < totalNumeros && i < 10; i++) {
-            System.out.print("Número " + (i + 1) + ": ");
-            int numero = scanner.nextInt();
-            calculadora.agregarNumero(numero);
-        }
-
-        System.out.println("Suma = " + calculadora.calcularSuma());
-        System.out.println("Promedio = " + calculadora.calcularPromedio());
-
-        scanner.close();
-    }
+    cout << "Suma = " << contenedor.obtenerSuma() << '\n'; // Muestra la suma de los números
+    cout << "Promedio = " << contenedor.obtenerPromedio() << '\n'; // Muestra el promedio de los números
+    return 0; // Indica que el programa finalizó correctamente
 }
+
